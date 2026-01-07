@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TodoApp</string>
+    <string name="title_app">Eisenhower Matrix Todo</string>
+    <string name="subtitle_app">Prioritize tasks effectively</string>
+    
+    <string name="search_hint">Search tasks</string>
+    <string name="filter_label">Filter</string>
+    <string name="sort_label">Sort by</string>
+    <string name="list_header">Your Tasks</string>
+    <string name="empty_message">No tasks yet. Add one!</string>
+    
+    <!-- Sort Field Strings -->
+    <string name="sort_field_created">Created Date</string>
+    <string name="sort_field_due">Due Date</string>
+    <string name="sort_field_priority">Priority</string>
+    
+    <string name="sort_direction_asc">Ascending</string>
+    <string name="sort_direction_desc">Descending</string>
+
+    <string name="label_overdue">OVERDUE</string>
+    
+    <string name="btn_pomodoro">Focus</string>
+    <string name="btn_edit">Edit</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_save">Save</string>
+    
+    <string name="filter_all">All</string>
+    <string name="filter_active">Active</string>
+    <string name="filter_done">Done</string>
+
+    <!-- Ivy Lee -->
+    <string name="plan_tomorrow">Plan Tomorrow</string>
+    <string name="view_tomorrow_plan">View Plan</string>
+    <string name="todays_top_6">Today\'s Top 6</string>
+    <string name="ivy_dialog_title">Plan Tomorrow Top 6 Tasks</string>
+    <string name="ivy_max_6_tasks">You can only select up to 6 tasks.</string>
+    <string name="ivy_no_tasks_planned">No tasks planned for today.</string>
+
+</resources>
