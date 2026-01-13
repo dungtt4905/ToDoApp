@@ -28,6 +28,12 @@
             android:exported="false"
             android:theme="@style/Theme.TodoApp" />
 
+        <activity
+            android:name=".ui.CalendarActivity"
+            android:label="@string/calendar_title"
+            android:exported="false"
+            android:theme="@style/Theme.TodoApp" />
+
         <receiver android:name=".notification.TodoNotificationReceiver" android:exported="false" />
 
     </application>

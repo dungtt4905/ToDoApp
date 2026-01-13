@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.todo.data.EisenhowerTag
 import com.example.todo.data.Priority
-import com.example.todo.data.RepeatType
 import com.example.todo.data.TodoEntity
 import com.example.todo.data.TodoRepository
 import kotlinx.coroutines.flow.*
@@ -170,14 +169,11 @@ class TodoViewModel(private val repo: TodoRepository) : ViewModel() {
         note: String, 
         dueAt: Long?, 
         priority: Priority, 
-        tag: EisenhowerTag, 
-        isRepeat: Boolean,
-        repeatType: RepeatType?,
-        repeatInterval: Int
+        tag: EisenhowerTag
     ) {
         if (title.isBlank()) return
         viewModelScope.launch { 
-            repo.add(title.trim(), note.trim(), dueAt, priority, tag, isRepeat, repeatType, repeatInterval) 
+            repo.add(title.trim(), note.trim(), dueAt, priority, tag) 
         }
     }
 
@@ -185,38 +181,7 @@ class TodoViewModel(private val repo: TodoRepository) : ViewModel() {
         viewModelScope.launch { 
             val newDoneState = !todo.isDone
             repo.update(todo.copy(isDone = newDoneState))
-            
-            if (newDoneState && todo.isRepeat && todo.dueAt != null && todo.repeatType != null) {
-                createNextRecurringTask(todo)
-            }
         }
-    }
-
-    private suspend fun createNextRecurringTask(completedTask: TodoEntity) {
-        val currentDue = completedTask.dueAt ?: return
-        val interval = if (completedTask.repeatInterval < 1) 1 else completedTask.repeatInterval
-        
-        val cal = Calendar.getInstance()
-        cal.timeInMillis = currentDue
-        
-        when (completedTask.repeatType) {
-            RepeatType.DAILY -> cal.add(Calendar.DAY_OF_YEAR, interval)
-            RepeatType.WEEKLY -> cal.add(Calendar.WEEK_OF_YEAR, interval)
-            RepeatType.MONTHLY -> cal.add(Calendar.MONTH, interval)
-            RepeatType.YEARLY -> cal.add(Calendar.YEAR, interval)
-            null -> return
-        }
-        
-        val nextDueAt = cal.timeInMillis
-        
-        val nextTask = completedTask.copy(
-            id = 0L, // Auto generate new ID
-            isDone = false,
-            createdAt = System.currentTimeMillis(),
-            dueAt = nextDueAt
-        )
-        
-        repo.addEntity(nextTask)
     }
 
     fun update(todo: TodoEntity) {

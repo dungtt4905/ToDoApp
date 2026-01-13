@@ -13,11 +13,6 @@ data class TodoEntity(
     val dueAt: Long? = null,               // epoch millis
     val priority: Priority = Priority.MEDIUM,
     val tag: EisenhowerTag = EisenhowerTag.DO_NOW,
-    
-    // Repeat Config
-    val isRepeat: Boolean = false,
-    val repeatType: RepeatType? = null,
-    val repeatInterval: Int = 1,
 
     // Ivy Lee Method
     val ivyDate: String? = null, // yyyy-MM-dd

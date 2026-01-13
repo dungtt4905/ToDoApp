@@ -111,48 +111,7 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
-        <CheckBox
-            android:id="@+id/cbRepeat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Repeat Task"
-            android:layout_marginTop="8dp" />
-
-        <!-- Repeat Options -->
-        <LinearLayout
-            android:id="@+id/layoutRepeatOptions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:layout_marginStart="24dp">
-            
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-                
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Repeat every:" />
-                    
-                <EditText
-                    android:id="@+id/etRepeatInterval"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:text="1"
-                    android:gravity="center"
-                    android:layout_marginHorizontal="8dp"/>
-                    
-                <Spinner
-                    android:id="@+id/spinnerRepeatType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </LinearLayout>
+        
 
     </LinearLayout>
 </ScrollView>

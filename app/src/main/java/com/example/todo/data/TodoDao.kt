@@ -22,4 +22,10 @@ interface TodoDao {
     
     @Query("SELECT * FROM todos WHERE ivyDate = :date ORDER BY ivyRank ASC")
     suspend fun getIvyTasksForDate(date: String): List<TodoEntity>
+    
+    @Query("SELECT * FROM todos WHERE dueAt >= :startOfDay AND dueAt < :endOfDay ORDER BY dueAt ASC")
+    suspend fun getTasksForDateRange(startOfDay: Long, endOfDay: Long): List<TodoEntity>
+    
+    @Query("SELECT DISTINCT date(dueAt / 1000, 'unixepoch', 'localtime') as date FROM todos WHERE dueAt IS NOT NULL")
+    suspend fun getAllDatesWithTasks(): List<String>
 }

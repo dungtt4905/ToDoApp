@@ -8,7 +8,4 @@ class Converters {
     
     @TypeConverter fun fromTag(v: EisenhowerTag): String = v.name
     @TypeConverter fun toTag(v: String): EisenhowerTag = EisenhowerTag.valueOf(v)
-    
-    @TypeConverter fun fromRepeatType(r: RepeatType?): String? = r?.name
-    @TypeConverter fun toRepeatType(s: String?): RepeatType? = s?.let { RepeatType.valueOf(it) }
 }

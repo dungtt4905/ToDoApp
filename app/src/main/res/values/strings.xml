@@ -37,4 +37,10 @@
     <string name="ivy_max_6_tasks">You can only select up to 6 tasks.</string>
     <string name="ivy_no_tasks_planned">No tasks planned for today.</string>
 
+    <!-- Calendar -->
+    <string name="calendar_title">Task Calendar</string>
+    <string name="select_date_prompt">Select a date to view tasks</string>
+    <string name="no_tasks_for_date">No tasks for this date</string>
+    <string name="btn_open_calendar">Calendar</string>
+
 </resources>

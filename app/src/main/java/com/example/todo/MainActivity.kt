@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo.data.AppDatabase
 import com.example.todo.data.EisenhowerTag
 import com.example.todo.data.Priority
-import com.example.todo.data.RepeatType
 import com.example.todo.data.TodoEntity
 import com.example.todo.data.TodoRepository
 import com.example.todo.databinding.ActivityMainBinding
@@ -94,6 +93,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnViewTomorrowPlan.setOnClickListener {
             showTomorrowPlanDialog()
+        }
+
+        binding.btnOpenCalendar.setOnClickListener {
+            val intent = Intent(this, CalendarActivity::class.java)
+            startActivity(intent)
         }
 
         // Search
@@ -247,11 +251,6 @@ class MainActivity : AppCompatActivity() {
         dialogBinding.etTitle.setText(todo?.title ?: "")
         dialogBinding.etNote.setText(todo?.note ?: "")
         
-        // Init Repeat
-        dialogBinding.cbRepeat.isChecked = todo?.isRepeat ?: false
-        dialogBinding.layoutRepeatOptions.visibility = if (todo?.isRepeat == true) View.VISIBLE else View.GONE
-        dialogBinding.etRepeatInterval.setText((todo?.repeatInterval ?: 1).toString())
-        
         // Spinners
         val priorityAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Priority.values())
         dialogBinding.spinnerPriority.adapter = priorityAdapter
@@ -263,17 +262,6 @@ class MainActivity : AppCompatActivity() {
         val initialTag = todo?.tag ?: EisenhowerTag.DO_NOW
         dialogBinding.spinnerTag.setSelection(EisenhowerTag.values().indexOf(initialTag))
         
-        // Repeat Type Spinner
-        val repeatTypeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, RepeatType.values())
-        dialogBinding.spinnerRepeatType.adapter = repeatTypeAdapter
-        val initialRepeatType = todo?.repeatType ?: RepeatType.DAILY
-        dialogBinding.spinnerRepeatType.setSelection(RepeatType.values().indexOf(initialRepeatType))
-
-        // Repeat Toggle Logic
-        dialogBinding.cbRepeat.setOnCheckedChangeListener { _, isChecked ->
-            dialogBinding.layoutRepeatOptions.visibility = if (isChecked) View.VISIBLE else View.GONE
-        }
-
         // Due Date Logic
         var currentDueAt: Long? = todo?.dueAt
         fun updateDateText() {
@@ -307,12 +295,6 @@ class MainActivity : AppCompatActivity() {
                 val priorityInput = dialogBinding.spinnerPriority.selectedItem as Priority
                 val tagInput = dialogBinding.spinnerTag.selectedItem as EisenhowerTag
                 
-                val isRepeatInput = dialogBinding.cbRepeat.isChecked
-                val repeatTypeInput = if (isRepeatInput) dialogBinding.spinnerRepeatType.selectedItem as RepeatType else null
-                val repeatIntervalInput = if (isRepeatInput) {
-                    dialogBinding.etRepeatInterval.text.toString().toIntOrNull() ?: 1
-                } else 1
-
                 if (titleInput.isNotBlank()) {
                     if (isCreatingNew) {
                         viewModel.add(
@@ -320,10 +302,7 @@ class MainActivity : AppCompatActivity() {
                             note = noteInput, 
                             dueAt = currentDueAt, 
                             priority = priorityInput, 
-                            tag = tagInput, 
-                            isRepeat = isRepeatInput,
-                            repeatType = repeatTypeInput,
-                            repeatInterval = repeatIntervalInput
+                            tag = tagInput
                         )
                     } else {
                         viewModel.update(todo.copy(
@@ -331,10 +310,7 @@ class MainActivity : AppCompatActivity() {
                             note = noteInput,
                             dueAt = currentDueAt,
                             priority = priorityInput,
-                            tag = tagInput,
-                            isRepeat = isRepeatInput,
-                            repeatType = repeatTypeInput,
-                            repeatInterval = repeatIntervalInput
+                            tag = tagInput
                         ))
                     }
                 }

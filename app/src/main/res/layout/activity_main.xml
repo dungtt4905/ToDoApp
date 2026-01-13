@@ -72,6 +72,16 @@
                     android:text="@string/view_tomorrow_plan" />
             </LinearLayout>
 
+            <Button
+                android:id="@+id/btnOpenCalendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/btn_open_calendar"
+                android:drawableLeft="@drawable/ic_calendar"
+                android:drawablePadding="8dp"
+                style="@style/Widget.Material3.Button.TonalButton" />
+
             <!-- Today's Top 6 -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/ivyCard"

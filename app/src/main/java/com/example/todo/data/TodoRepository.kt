@@ -10,10 +10,7 @@ class TodoRepository(private val dao: TodoDao) {
         note: String,
         dueAt: Long?,
         priority: Priority,
-        tag: EisenhowerTag,
-        isRepeat: Boolean,
-        repeatType: RepeatType?,
-        repeatInterval: Int
+        tag: EisenhowerTag
     ) {
         dao.insert(
             TodoEntity(
@@ -21,10 +18,7 @@ class TodoRepository(private val dao: TodoDao) {
                 note = note,
                 dueAt = dueAt,
                 priority = priority,
-                tag = tag,
-                isRepeat = isRepeat,
-                repeatType = repeatType,
-                repeatInterval = repeatInterval
+                tag = tag
             )
         )
     }
@@ -40,5 +34,14 @@ class TodoRepository(private val dao: TodoDao) {
     // Ivy Lee queries
     suspend fun getIvyTasksForDate(date: String): List<TodoEntity> {
         return dao.getIvyTasksForDate(date)
+    }
+    
+    // Calendar queries
+    suspend fun getTasksForDateRange(startOfDay: Long, endOfDay: Long): List<TodoEntity> {
+        return dao.getTasksForDateRange(startOfDay, endOfDay)
+    }
+    
+    suspend fun getAllDatesWithTasks(): List<String> {
+        return dao.getAllDatesWithTasks()
     }
 }

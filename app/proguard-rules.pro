@@ -19,3 +19,16 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Keep MaterialCalendarView classes
+-keep class com.prolificinteractive.materialcalendarview.** { *; }
+-dontwarn com.prolificinteractive.materialcalendarview.**
+
+# Keep Calendar-related classes from Android
+-keep class java.util.Calendar { *; }
+-keep class java.text.SimpleDateFormat { *; }
+
+# Room
+-keep class * extends androidx.room.RoomDatabase
+-keep @androidx.room.Entity class *
+-dontwarn androidx.room.paging.**

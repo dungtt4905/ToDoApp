@@ -60,9 +60,7 @@ class TodoAdapter(
             val tagLabel = item.tag.name.replace("_", " ").lowercase().split(" ")
                 .joinToString(" ") { it.replaceFirstChar { char -> char.uppercase() } }
             
-            val repeatIcon = if (item.isRepeat) "🔁 " else ""
-            
-            binding.tvMeta?.text = "$repeatIcon$dueText • $priorityLabel • $tagLabel"
+            binding.tvMeta?.text = "$dueText • $priorityLabel • $tagLabel"
 
             // --- Overdue Logic & Visuals ---
             val now = System.currentTimeMillis()
