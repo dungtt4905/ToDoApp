@@ -56,6 +56,21 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerView()
         setupListeners()
         observeViewModel()
+        
+        // Handle edit intent from CalendarActivity
+        handleEditIntent()
+    }
+
+    private fun handleEditIntent() {
+        val editTodoId = intent.getLongExtra("editTodoId", -1L)
+        if (editTodoId != -1L) {
+            lifecycleScope.launch {
+                val todo = viewModel.getTodoById(editTodoId)
+                if (todo != null) {
+                    showEditorDialog(todo)
+                }
+            }
+        }
     }
 
     private fun setupRecyclerView() {

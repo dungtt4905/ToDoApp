@@ -50,7 +50,14 @@ class CalendarActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         adapter = TodoAdapter(
             onToggle = { viewModel.toggleDone(it) },
-            onEdit = { /* Navigate back to MainActivity to edit */ },
+            onEdit = { todo ->
+                // Return to MainActivity with edit intent
+                val intent = Intent(this, com.example.todo.MainActivity::class.java)
+                intent.putExtra("editTodoId", todo.id)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
+                finish()
+            },
             onDelete = { viewModel.deleteTodo(it) },
             onPomodoro = { todo ->
                 val intent = Intent(this, PomodoroActivity::class.java)

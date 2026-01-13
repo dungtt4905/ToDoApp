@@ -210,6 +210,10 @@ class TodoViewModel(private val repo: TodoRepository) : ViewModel() {
             repo.update(todo.copy(ivyDate = null, ivyRank = null))
         }
     }
+
+    suspend fun getTodoById(id: Long): TodoEntity? {
+        return repo.getById(id)
+    }
 }
 
 class TodoViewModelFactory(private val repo: TodoRepository) : ViewModelProvider.Factory {

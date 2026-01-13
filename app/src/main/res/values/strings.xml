@@ -11,7 +11,7 @@
     <string name="empty_message">No tasks yet. Add one!</string>
     
     <!-- Sort Field Strings -->
-    <string name="sort_field_created">Created Date</string>
+    <string name="sort_field_created">Created</string>
     <string name="sort_field_due">Due Date</string>
     <string name="sort_field_priority">Priority</string>
     
