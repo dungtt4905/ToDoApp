@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -120,46 +121,16 @@ class MainActivity : AppCompatActivity() {
             viewModel.setQuery(text.toString())
         }
 
-        // Filter Dropdown
-        val filterAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, Filter.values().map { it.name })
-        binding.actFilter.setAdapter(filterAdapter)
-        binding.actFilter.setOnItemClickListener { _, _, position, _ ->
-            viewModel.setFilter(Filter.values()[position])
+        // Filter & Sort Button
+        binding.btnFilterSort.setOnClickListener {
+            showFilterSortBottomSheet()
         }
 
-        // --- NEW SORT LOGIC ---
-        
-        // 1. Sort Field Dropdown
-        val sortFields = listOf(
-            getString(R.string.sort_field_created),
-            getString(R.string.sort_field_due),
-            getString(R.string.sort_field_priority)
-        )
-        val sortFieldAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, sortFields)
-        binding.actSortField.setAdapter(sortFieldAdapter)
-        
-        // Default selection: Created Date
-        currentSortFieldStr = getString(R.string.sort_field_created)
-        binding.actSortField.setText(currentSortFieldStr, false)
-        
-        binding.actSortField.setOnItemClickListener { _, _, position, _ ->
-            currentSortFieldStr = sortFields[position]
-            updateSort()
-        }
-        
-        // 2. Sort Direction Toggle
-        updateSortDirectionIcon()
-        binding.btnSortDirection.setOnClickListener {
-            isSortAscending = !isSortAscending
-            updateSortDirectionIcon()
-            updateSort()
-        }
-
-        // Eisenhower Buttons
-        binding.btnDoNow.setOnClickListener { viewModel.setGroup(TodoGroup.DO_NOW) }
-        binding.btnSchedule.setOnClickListener { viewModel.setGroup(TodoGroup.SCHEDULE) }
-        binding.btnDelegate.setOnClickListener { viewModel.setGroup(TodoGroup.DELEGATE) }
-        binding.btnEliminate.setOnClickListener { viewModel.setGroup(TodoGroup.ELIMINATE) }
+        // Eisenhower Matrix Cards
+        binding.cardDoNow.setOnClickListener { viewModel.setGroup(TodoGroup.DO_NOW) }
+        binding.cardSchedule.setOnClickListener { viewModel.setGroup(TodoGroup.SCHEDULE) }
+        binding.cardDelegate.setOnClickListener { viewModel.setGroup(TodoGroup.DELEGATE) }
+        binding.cardEliminate.setOnClickListener { viewModel.setGroup(TodoGroup.ELIMINATE) }
         binding.btnAll.setOnClickListener { viewModel.setGroup(TodoGroup.ALL) }
         binding.btnUpcoming.setOnClickListener { viewModel.setGroup(TodoGroup.UPCOMING) }
 
@@ -169,14 +140,36 @@ class MainActivity : AppCompatActivity() {
         }
     }
     
-    private fun updateSortDirectionIcon() {
-        val iconRes = if (isSortAscending) android.R.drawable.arrow_up_float else android.R.drawable.arrow_down_float
-        binding.btnSortDirection.setImageResource(iconRes)
+    private fun showFilterSortBottomSheet() {
+        val currentFilter = when (viewModel.state.value.filter) {
+            Filter.ALL -> getString(R.string.filter_all)
+            Filter.ACTIVE -> getString(R.string.filter_active)
+            Filter.DONE -> getString(R.string.filter_done)
+        }
         
-        val descRes = if (isSortAscending) R.string.sort_direction_asc else R.string.sort_direction_desc
-        binding.btnSortDirection.contentDescription = getString(descRes)
+        val bottomSheet = FilterSortBottomSheet(
+            currentFilter = currentFilter,
+            currentSortField = currentSortFieldStr,
+            isSortAscending = isSortAscending
+        ) { filter, sortField, isAscending ->
+            // Update filter
+            val filterEnum = when (filter) {
+                getString(R.string.filter_all) -> Filter.ALL
+                getString(R.string.filter_active) -> Filter.ACTIVE
+                getString(R.string.filter_done) -> Filter.DONE
+                else -> Filter.ALL
+            }
+            viewModel.setFilter(filterEnum)
+            
+            // Update sort
+            currentSortFieldStr = sortField
+            isSortAscending = isAscending
+            updateSort()
+        }
+        
+        bottomSheet.show(supportFragmentManager, "FilterSortBottomSheet")
     }
-
+    
     private fun updateSort() {
         val sortEnum = when (currentSortFieldStr) {
             getString(R.string.sort_field_created) -> {
@@ -197,7 +190,10 @@ class MainActivity : AppCompatActivity() {
     private fun observeViewModel() {
         lifecycleScope.launch {
             viewModel.state.collectLatest { state ->
-                adapter.submitList(state.items)
+                // Animate list updates
+                adapter.submitList(state.items) {
+                    binding.recyclerView.scheduleLayoutAnimation()
+                }
                 
                 if (state.ivyTasks.isNotEmpty()) {
                     binding.ivyCard.visibility = View.VISIBLE
@@ -206,7 +202,18 @@ class MainActivity : AppCompatActivity() {
                     binding.ivyCard.visibility = View.GONE
                 }
                 
-                binding.tvEmpty.visibility = if (state.items.isEmpty() && state.ivyTasks.isEmpty()) View.VISIBLE else View.GONE
+                // Show/hide empty state with fade animation
+                val isEmpty = state.items.isEmpty() && state.ivyTasks.isEmpty()
+                if (isEmpty) {
+                    binding.emptyState.visibility = View.VISIBLE
+                    binding.emptyState.alpha = 0f
+                    binding.emptyState.animate()
+                        .alpha(1f)
+                        .setDuration(300)
+                        .start()
+                } else {
+                    binding.emptyState.visibility = View.GONE
+                }
                 
                 // Update header title based on group
                 val groupTitle = when (state.group) {
@@ -218,6 +225,18 @@ class MainActivity : AppCompatActivity() {
                     TodoGroup.ELIMINATE -> "Eliminate"
                 }
                 binding.tvListHeader.text = groupTitle
+                
+                // Update task counts in matrix cards with animation
+                val allItems = state.items
+                val doNowCount = allItems.count { it.tag == EisenhowerTag.DO_NOW }
+                val scheduleCount = allItems.count { it.tag == EisenhowerTag.SCHEDULE }
+                val delegateCount = allItems.count { it.tag == EisenhowerTag.DELEGATE }
+                val eliminateCount = allItems.count { it.tag == EisenhowerTag.ELIMINATE }
+                
+                animateCountChange(binding.tvCountDoNow, "$doNowCount tasks")
+                animateCountChange(binding.tvCountSchedule, "$scheduleCount tasks")
+                animateCountChange(binding.tvCountDelegate, "$delegateCount tasks")
+                animateCountChange(binding.tvCountEliminate, "$eliminateCount tasks")
 
                 // Schedule notifications
                 state.items.forEach { todo ->
@@ -228,6 +247,22 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+    }
+    
+    private fun animateCountChange(textView: TextView, newText: String) {
+        if (textView.text != newText) {
+            textView.animate()
+                .alpha(0f)
+                .setDuration(100)
+                .withEndAction {
+                    textView.text = newText
+                    textView.animate()
+                        .alpha(1f)
+                        .setDuration(100)
+                        .start()
+                }
+                .start()
         }
     }
 

@@ -9,294 +9,493 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorSurface"
+        android:background="@color/surface"
         app:elevation="0dp">
 
-        <LinearLayout
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title_app"
-                android:textAppearance="?attr/textAppearanceHeadline5"
-                android:textStyle="bold"
-                android:textColor="?attr/colorOnSurface" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/subtitle_app"
-                android:textAppearance="?attr/textAppearanceSubtitle2"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:layout_marginTop="4dp" />
-
-        </LinearLayout>
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/surface"
+            app:title="Eisenhower Todo"
+            app:subtitle="Plan smarter, not more"
+            app:titleTextAppearance="@style/TextAppearance.TodoApp.TitleLarge"
+            app:subtitleTextAppearance="@style/TextAppearance.TodoApp.BodySmall"
+            app:titleTextColor="@color/text_primary"
+            app:subtitleTextColor="@color/text_secondary"
+            app:contentInsetStart="@dimen/spacing_md" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingHorizontal="@dimen/spacing_md"
+            android:paddingTop="@dimen/spacing_md"
+            android:paddingBottom="80dp">
 
-            <LinearLayout
+            <!-- Quick Action Cards -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:spacing="8dp">
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation"
+                android:layout_marginBottom="@dimen/spacing_sm">
 
-                <Button
-                    android:id="@+id/btnPlanTomorrow"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/plan_tomorrow" />
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_md">
 
-                <Button
-                    android:id="@+id/btnViewTomorrowPlan"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/view_tomorrow_plan" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Quick Actions"
+                        android:textAppearance="@style/TextAppearance.TodoApp.TitleMedium"
+                        android:layout_marginBottom="@dimen/spacing_sm" />
 
-            <Button
-                android:id="@+id/btnOpenCalendar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/btn_open_calendar"
-                android:drawableLeft="@drawable/ic_calendar"
-                android:drawablePadding="8dp"
-                style="@style/Widget.Material3.Button.TonalButton" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnPlanTomorrow"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="@dimen/spacing_xs"
+                            android:text="@string/plan_tomorrow"
+                            app:icon="@android:drawable/ic_menu_my_calendar"
+                            app:iconGravity="textStart" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnViewTomorrowPlan"
+                            style="@style/Widget.Material3.Button.TonalButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/spacing_xs"
+                            android:text="@string/view_tomorrow_plan"
+                            app:icon="@android:drawable/ic_menu_view"
+                            app:iconGravity="textStart" />
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnOpenCalendar"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_sm"
+                        android:text="@string/btn_open_calendar"
+                        app:icon="@drawable/ic_calendar"
+                        app:iconGravity="textStart" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Today's Top 6 -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/ivyCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="2dp"
+                android:layout_marginBottom="@dimen/spacing_sm"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation"
                 android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="12dp">
+                    android:padding="@dimen/spacing_md"
+                    android:background="@color/surface">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/todays_top_6"
-                        android:textAppearance="?attr/textAppearanceHeadline6" />
+                        android:textAppearance="@style/TextAppearance.TodoApp.TitleMedium"
+                        android:drawableStart="@android:drawable/star_big_on"
+                        android:drawablePadding="@dimen/spacing_sm"
+                        android:drawableTint="@color/warning" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/ivyRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/spacing_sm"
                         android:nestedScrollingEnabled="false" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Search -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/search_hint"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_marginTop="16dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etSearch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Filter & Sort Row -->
+            <!-- Search Bar -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginTop="12dp"
-                android:baselineAligned="false">
+                android:layout_marginBottom="@dimen/spacing_sm">
 
-                <!-- Filter -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginEnd="6dp"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:hint="@string/filter_label">
+                    android:hint="@string/search_hint"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    app:startIconDrawable="@android:drawable/ic_menu_search">
 
-                    <AutoCompleteTextView
-                        android:id="@+id/actFilter"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etSearch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none"
-                        android:text="@string/filter_all" />
+                        android:inputType="text"
+                        android:maxLines="1"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Sort Field -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnFilterSort"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginEnd="8dp"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:hint="@string/sort_label">
+                    android:layout_marginStart="@dimen/spacing_sm"
+                    app:icon="@android:drawable/ic_menu_sort_by_size"
+                    android:contentDescription="Filter and Sort" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/actSortField"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="none"
-                        android:text="@string/sort_field_created" />
-                </com.google.android.material.textfield.TextInputLayout>
-                
-                <!-- Sort Direction Toggle -->
-                <ImageButton
-                    android:id="@+id/btnSortDirection"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="4dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@android:drawable/arrow_down_float"
-                    android:contentDescription="@string/sort_direction_desc"
-                    app:tint="?attr/colorOnSurface" />
             </LinearLayout>
 
             <!-- Eisenhower Matrix Grid -->
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="16dp">
+                android:layout_marginBottom="@dimen/spacing_sm"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_md">
 
-                    <Button
-                        android:id="@+id/btnDoNow"
-                        android:layout_width="0dp"
-                        android:layout_height="72dp"
-                        android:layout_weight="1"
-                        android:text="Do Now"
-                        android:backgroundTint="#FFCDD2"
-                        android:textColor="@color/black"
-                        android:layout_marginEnd="4dp" />
-
-                    <Button
-                        android:id="@+id/btnSchedule"
-                        android:layout_width="0dp"
-                        android:layout_height="72dp"
-                        android:layout_weight="1"
-                        android:text="Schedule"
-                        android:backgroundTint="#C8E6C9"
-                        android:textColor="@color/black"
-                        android:layout_marginStart="4dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="8dp">
-
-                    <Button
-                        android:id="@+id/btnDelegate"
-                        android:layout_width="0dp"
-                        android:layout_height="72dp"
-                        android:layout_weight="1"
-                        android:text="Delegate"
-                        android:backgroundTint="#FFF9C4"
-                        android:textColor="@color/black"
-                        android:layout_marginEnd="4dp" />
-
-                    <Button
-                        android:id="@+id/btnEliminate"
-                        android:layout_width="0dp"
-                        android:layout_height="72dp"
-                        android:layout_weight="1"
-                        android:text="Eliminate"
-                        android:backgroundTint="#FFCCBC"
-                        android:textColor="@color/black"
-                        android:layout_marginStart="4dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="8dp">
-
-                    <Button
-                        android:id="@+id/btnAll"
-                        style="@style/Widget.Material3.Button.OutlinedButton"
-                        android:layout_width="0dp"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="All Tasks"
-                        android:layout_marginEnd="4dp"/>
+                        android:text="Eisenhower Matrix"
+                        android:textAppearance="@style/TextAppearance.TodoApp.TitleMedium"
+                        android:layout_marginBottom="@dimen/spacing_md" />
 
-                    <Button
-                        android:id="@+id/btnUpcoming"
-                        style="@style/Widget.Material3.Button.OutlinedButton"
-                        android:layout_width="0dp"
+                    <!-- Row 1: Do Now + Schedule -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Upcoming"
-                        android:layout_marginStart="4dp"/>
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cardDoNow"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/matrix_card_height"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="@dimen/spacing_xs"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardCornerRadius="@dimen/card_corner_radius"
+                            app:cardElevation="@dimen/card_elevation"
+                            app:cardBackgroundColor="@color/surface"
+                            app:strokeWidth="2dp"
+                            app:strokeColor="@color/matrix_urgent_important">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="@dimen/spacing_md"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="🔴"
+                                    android:textSize="32sp"
+                                    android:layout_marginBottom="@dimen/spacing_xs" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Do Now"
+                                    android:textAppearance="@style/TextAppearance.TodoApp.TitleSmall"
+                                    android:textColor="@color/matrix_urgent_important"
+                                    android:gravity="center"
+                                    android:layout_marginBottom="@dimen/spacing_xs" />
+
+                                <TextView
+                                    android:id="@+id/tvCountDoNow"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0 tasks"
+                                    android:textAppearance="@style/TextAppearance.TodoApp.BodySmall"
+                                    android:gravity="center" />
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cardSchedule"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/matrix_card_height"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/spacing_xs"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardCornerRadius="@dimen/card_corner_radius"
+                            app:cardElevation="@dimen/card_elevation"
+                            app:cardBackgroundColor="@color/surface"
+                            app:strokeWidth="2dp"
+                            app:strokeColor="@color/matrix_not_urgent_important">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="@dimen/spacing_md"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="🔵"
+                                    android:textSize="32sp"
+                                    android:layout_marginBottom="@dimen/spacing_xs" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Schedule"
+                                    android:textAppearance="@style/TextAppearance.TodoApp.TitleSmall"
+                                    android:textColor="@color/matrix_not_urgent_important"
+                                    android:gravity="center"
+                                    android:layout_marginBottom="@dimen/spacing_xs" />
+
+                                <TextView
+                                    android:id="@+id/tvCountSchedule"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0 tasks"
+                                    android:textAppearance="@style/TextAppearance.TodoApp.BodySmall"
+                                    android:gravity="center" />
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+
+                    <!-- Row 2: Delegate + Eliminate -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/spacing_sm"
+                        android:baselineAligned="false">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cardDelegate"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/matrix_card_height"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="@dimen/spacing_xs"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardCornerRadius="@dimen/card_corner_radius"
+                            app:cardElevation="@dimen/card_elevation"
+                            app:cardBackgroundColor="@color/surface"
+                            app:strokeWidth="2dp"
+                            app:strokeColor="@color/matrix_urgent_not_important">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="@dimen/spacing_md"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="🟢"
+                                    android:textSize="32sp"
+                                    android:layout_marginBottom="@dimen/spacing_xs" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Delegate"
+                                    android:textAppearance="@style/TextAppearance.TodoApp.TitleSmall"
+                                    android:textColor="@color/matrix_urgent_not_important"
+                                    android:gravity="center"
+                                    android:layout_marginBottom="@dimen/spacing_xs" />
+
+                                <TextView
+                                    android:id="@+id/tvCountDelegate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0 tasks"
+                                    android:textAppearance="@style/TextAppearance.TodoApp.BodySmall"
+                                    android:gravity="center" />
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cardEliminate"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/matrix_card_height"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/spacing_xs"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardCornerRadius="@dimen/card_corner_radius"
+                            app:cardElevation="@dimen/card_elevation"
+                            app:cardBackgroundColor="@color/surface"
+                            app:strokeWidth="2dp"
+                            app:strokeColor="@color/matrix_not_urgent_not_important">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="@dimen/spacing_md"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="🟣"
+                                    android:textSize="32sp"
+                                    android:layout_marginBottom="@dimen/spacing_xs" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Eliminate"
+                                    android:textAppearance="@style/TextAppearance.TodoApp.TitleSmall"
+                                    android:textColor="@color/matrix_not_urgent_not_important"
+                                    android:gravity="center"
+                                    android:layout_marginBottom="@dimen/spacing_xs" />
+
+                                <TextView
+                                    android:id="@+id/tvCountEliminate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0 tasks"
+                                    android:textAppearance="@style/TextAppearance.TodoApp.BodySmall"
+                                    android:gravity="center" />
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+
+                    <!-- Bottom row: All Tasks + Upcoming -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/spacing_md"
+                        android:baselineAligned="false">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnAll"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="All Tasks"
+                            android:layout_marginEnd="@dimen/spacing_xs"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnUpcoming"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="⏰ Upcoming"
+                            android:layout_marginStart="@dimen/spacing_xs"/>
+                    </LinearLayout>
+
                 </LinearLayout>
 
-            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/tvListHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/list_header"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                android:textColor="?attr/colorOnSurface"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="8dp" />
+                android:textAppearance="@style/TextAppearance.TodoApp.HeadlineSmall"
+                android:layout_marginTop="@dimen/spacing_sm"
+                android:layout_marginBottom="@dimen/spacing_sm" />
 
             <!-- Empty View -->
-            <TextView
-                android:id="@+id/tvEmpty"
+            <LinearLayout
+                android:id="@+id/emptyState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/empty_message"
+                android:orientation="vertical"
                 android:gravity="center"
-                android:padding="32dp"
-                android:visibility="gone" />
+                android:padding="@dimen/spacing_xxl"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📋"
+                    android:textSize="48sp"
+                    android:layout_marginBottom="@dimen/spacing_md" />
+
+                <TextView
+                    android:id="@+id/tvEmpty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/empty_message"
+                    android:textAppearance="@style/TextAppearance.TodoApp.BodyLarge"
+                    android:gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tap + to create your first task"
+                    android:textAppearance="@style/TextAppearance.TodoApp.BodySmall"
+                    android:layout_marginTop="@dimen/spacing_xs"
+                    android:gravity="center" />
+
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipToPadding="false"
                 android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/item_task" />
 
@@ -304,13 +503,17 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/spacing_lg"
+        android:text="Add Task"
         android:contentDescription="@string/app_name"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:icon="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/primary"
+        app:iconTint="@color/white"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

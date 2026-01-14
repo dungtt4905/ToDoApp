@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base Theme -->
+    <style name="Base.Theme.TodoApp" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/primary</item>
+    </style>
+    
+    <style name="Theme.TodoApp" parent="Base.Theme.TodoApp" />
+    
+    <!-- Display Styles -->
+    <style name="TextAppearance.TodoApp.DisplayLarge" parent="TextAppearance.Material3.DisplayLarge">
+        <item name="android:textSize">@dimen/text_display_large</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
+    
+    <style name="TextAppearance.TodoApp.DisplayMedium" parent="TextAppearance.Material3.DisplayMedium">
+        <item name="android:textSize">@dimen/text_display_medium</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
+    
+    <style name="TextAppearance.TodoApp.DisplaySmall" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="android:textSize">@dimen/text_display_small</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
+    
+    <!-- Headline Styles -->
+    <style name="TextAppearance.TodoApp.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:textSize">@dimen/text_headline_large</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <style name="TextAppearance.TodoApp.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textSize">@dimen/text_headline_medium</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <style name="TextAppearance.TodoApp.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textSize">@dimen/text_headline_small</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <!-- Title Styles -->
+    <style name="TextAppearance.TodoApp.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">@dimen/text_title_large</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <style name="TextAppearance.TodoApp.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textSize">@dimen/text_title_medium</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <style name="TextAppearance.TodoApp.TitleSmall" parent="TextAppearance.Material3.TitleSmall">
+        <item name="android:textSize">@dimen/text_title_small</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <!-- Body Styles -->
+    <style name="TextAppearance.TodoApp.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textSize">@dimen/text_body_large</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
+    
+    <style name="TextAppearance.TodoApp.BodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textSize">@dimen/text_body_medium</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
+    
+    <style name="TextAppearance.TodoApp.BodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textSize">@dimen/text_body_small</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
+    
+    <!-- Label Styles -->
+    <style name="TextAppearance.TodoApp.LabelLarge" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textSize">@dimen/text_label_large</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <style name="TextAppearance.TodoApp.LabelMedium" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textSize">@dimen/text_label_medium</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <style name="TextAppearance.TodoApp.LabelSmall" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textSize">@dimen/text_label_small</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <!-- Card Style -->
+    <style name="Widget.TodoApp.CardView" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="cardBackgroundColor">@color/surface</item>
+        <item name="contentPadding">@dimen/spacing_md</item>
+    </style>
+    
+    <!-- Button Styles -->
+    <style name="Widget.TodoApp.Button" parent="Widget.Material3.Button">
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
+        <item name="android:textAppearance">@style/TextAppearance.TodoApp.LabelLarge</item>
+    </style>
+    
+    <style name="Widget.TodoApp.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
+        <item name="android:textAppearance">@style/TextAppearance.TodoApp.LabelLarge</item>
+    </style>
+    
+    <style name="Widget.TodoApp.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
+        <item name="android:textAppearance">@style/TextAppearance.TodoApp.LabelLarge</item>
+    </style>
+    
+    <!-- FAB Style -->
+    <style name="Widget.TodoApp.ExtendedFloatingActionButton" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
+        <item name="android:textAppearance">@style/TextAppearance.TodoApp.LabelLarge</item>
+    </style>
+</resources>

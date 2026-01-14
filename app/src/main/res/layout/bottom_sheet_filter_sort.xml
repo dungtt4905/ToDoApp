@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_md">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filter &amp; Sort"
+        android:textAppearance="@style/TextAppearance.TodoApp.TitleLarge"
+        android:layout_marginBottom="@dimen/spacing_md" />
+
+    <!-- Filter -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filter"
+        android:textAppearance="@style/TextAppearance.TodoApp.TitleSmall"
+        android:layout_marginBottom="@dimen/spacing_xs" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_md"
+        style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:hint="@string/filter_label">
+
+        <AutoCompleteTextView
+            android:id="@+id/actFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:text="@string/filter_all" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Sort Section -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sort By"
+        android:textAppearance="@style/TextAppearance.TodoApp.TitleSmall"
+        android:layout_marginTop="@dimen/spacing_md"
+        android:layout_marginBottom="@dimen/spacing_sm" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:hint="@string/sort_label">
+
+        <AutoCompleteTextView
+            android:id="@+id/actSortField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:text="@string/sort_field_created" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/spacing_md">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sort Direction"
+            android:textAppearance="@style/TextAppearance.TodoApp.BodyMedium"
+            android:layout_marginEnd="@dimen/spacing_md" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSortDirectionSheet"
+            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descending"
+            app:icon="@android:drawable/arrow_down_float" />
+
+    </LinearLayout>
+
+</LinearLayout>
